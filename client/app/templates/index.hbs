@@ -1,0 +1,11 @@
+<button {{action 'helpMethod' model}}> CLICK THIS</button>
+<main>
+  {{#plaid-link action='processPlaidToken'}}Verify Bank Account{{/plaid-link}}
+</main>
+
+<aside class="">
+  {{#each model as |coffee|}}
+    <h1>{{coffee.name}}</h1>
+  {{/each}}
+
+</aside>

@@ -1,0 +1,1 @@
+/Users/Liam/Desktop/coffee_card3/client/node_modules/ember-cli/lib/broccoli/testem.js
