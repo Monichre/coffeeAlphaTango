@@ -1,8 +1,11 @@
 // server.js
+var client_id = require('./../.env').client_id;
+var secret = require('./../.env').secret;
 
 // BASE SETUP
 // call the packages we need
 var Coffee = require('./models/coffee');
+var plaid = require('plaid');
 
 var express    = require('express'),        // call express
     app        = express(),                 // define our app using express
@@ -97,7 +100,37 @@ router.route('/coffees/:coffee_id')
     });
   });
 
+  // router.post('/test', function(request, response) {
+  //
+  // })
 
+  //listening from Ember plaid link
+router.route('/authenticate')
+
+  .post(function(request, response){
+    var plaidClient = new plaid.Client(client_id, secret, plaid.environments.tartan);
+    var public_token = request.body.public_token;
+    var foundAccount;
+    console.log(plaidClient);
+
+    // Exchange a public_token for a Plaid access_token
+    plaidClient.exchangeToken(public_token, function(err, res) {
+      if (err != null) {
+        // Handle error!
+      } else {
+      // This is your Plaid access token - store somewhere persistent
+      // The access_token can be used to make Plaid API calls to
+      // retrieve accounts and transactions
+      var access_token = res.access_token;
+      //exchange public token for a plaid access token
+      plaidClient.getConnectUser(access_token, {
+        gte: '30 days ago',
+      }, function(err, res) {
+        response.json(res.transactions);
+      });
+      }
+    });
+  });
 
 
 // REGISTER OUR ROUTES

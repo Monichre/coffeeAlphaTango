@@ -4,15 +4,20 @@ export default Ember.Route.extend({
   helpMe:false,
 
   model(){
-    console.log("hey");
+    
     return this.store.findAll('coffee');
   },
   actions: {
-    helpMethod(model){
-      console.log(model);
-      console.log(model.getEach('id'));
-      console.log(model.getEach('name'));
-
+    processPlaidToken(public_token){
+      $.ajax({
+        url:'http://localhost:8080/api/v1/authenticate',
+        method:'POST',
+        data:{
+        public_token: public_token,
+        },
+      }).then(function(data){
+        console.log(data);
+      })
     }
   }
 });

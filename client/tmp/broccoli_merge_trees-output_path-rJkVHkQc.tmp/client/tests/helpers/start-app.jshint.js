@@ -1,0 +1,1 @@
+/Users/Liam/Desktop/coffee_card3/client/tmp/broccoli_merge_trees-input_base_path-XtzvHQJE.tmp/2/client/tests/helpers/start-app.jshint.js

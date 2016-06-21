@@ -1,13 +1,15 @@
 /* jshint node: true */
+var client_id = require('./../../.env').client_id;
+var client_key = require('./../../.env').key;
 
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'client',
     environment: environment,
     'ember-plaid': {
-      clientName: '5761acbe0259902a3980f28e',
-      product: 'auth',
-      key: '6e52301db2616c95f43f54563a6c34',
+      clientName: client_id,
+      product: 'connect',
+      key: client_key,
       env: 'tartan'
     },
     contentSecurityPolicy: {
