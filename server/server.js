@@ -1,10 +1,11 @@
 // server.js
 var client_id = require('./../.env').client_id;
 var secret = require('./../.env').secret;
+var jsonData = require('./../.env').jsonData;
 
 // BASE SETUP
 // call the packages we need
-var Coffee = require('./models/coffee');
+var User = require('./models/user');
 var plaid = require('plaid');
 
 var express    = require('express'),        // call express
@@ -39,30 +40,32 @@ router.get('/', function(request, response) {
 // more routes for our API will happen here
 
 //test routes ending with coffeeshops
-router.route('/coffees')
+router.route('/users')
 
 
-  // create a coffee(shop) accessed at POST http://localhost:8080/api/v1/coffees
+  // create a user accessed at POST http://localhost:8080/api/v1/users
   .post(function(request, response){
-    var coffeeShop = new Coffee(); // new instance of the model
-    console.log(coffeeShop);
-    coffeeShop.name = request.body.name;
-    coffeeShop.address = request.body.address;
+    var user = new User(); // new instance of the model
+    console.log(user);
+    console.log(request);
+    // user.accounts = request.body.accounts;
+    // user.coffeeShop = request.body.coffeeShop;
+    // user.lastCoffee_id = request.body.lastCoffee_id;
 
-    coffeeShop.save(function(error){
+    user.save(function(error){
       if(error)
         response.send(error);
 
-      response.json({message:'coffeeShop created!'});
+      response.json({message:'user created!'});
     });
 
   })
 
-  // get all coffee(shops) accessed at  http://localhost:8080/api/v1/coffees
+  // get all users(shops) accessed at  http://localhost:8080/api/v1/users
   .get(function(request, response){
-    Coffee.find(function(error, coffees){
+    User.find(function(error, users){
       if (error) response.send(error);
-      response.json(coffees);
+      response.json(users);
     });
   })
 
@@ -99,10 +102,12 @@ router.route('/coffees/:coffee_id')
       response.json({message: 'Successfully Deleted'});
     });
   });
-
-  // router.post('/test', function(request, response) {
-  //
-  // })
+// *******************************************************************************
+//Ember routes
+  router.post('/test', function(request, response) {
+    console.log(jsonData);
+    response.json(jsonData);
+  })
 
   //listening from Ember plaid link
 router.route('/authenticate')
@@ -144,4 +149,4 @@ console.log('Magic happens on port ' + port);
 //*****************************************************************************
 //Database
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://ellisliam:8milero@ds025802.mlab.com:25802/coffee_db');
+mongoose.connect('mongodb://ellisliam:coffee@ds033865.mlab.com:33865/user_coffee');

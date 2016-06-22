@@ -1,11 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  helpMe:false,
-
   model(){
-    
-    return this.store.findAll('coffee');
+    return this.store.findAll('user');
   },
   actions: {
     processPlaidToken(public_token){

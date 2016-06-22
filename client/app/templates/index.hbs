@@ -1,4 +1,5 @@
 
 <main>
-  {{#plaid-link action='processPlaidToken'}}Verify Bank Account{{/plaid-link}}
+  <!-- {{#plaid-link action='processPlaidToken'}}Verify Bank Account{{/plaid-link}} -->
+  {{plaid-call users=model}}
 </main>
