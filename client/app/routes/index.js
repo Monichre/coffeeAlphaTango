@@ -13,8 +13,15 @@ export default Ember.Route.extend({
         public_token: public_token,
         },
       }).then(function(data){
-        console.log(data);
+        // console.log(data);
       })
-    }
+    },
+    saveUser(newUser){
+     var savedUser = this.store.createRecord('user', newUser);
+     savedUser.save();
+   },
+   updateUser(user){
+     user.save();
+   }
   }
 });

@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   accounts: [String],
   coffeeShops: [String],
-  lastCoffeeId: String
+  lastCoffeeId: String,
 });
 
 module.exports = mongoose.model('User', UserSchema);

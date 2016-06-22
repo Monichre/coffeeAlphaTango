@@ -1,1 +1,10 @@
-<button {{action 'callApi' users}}>Call Api</button>
+{{#if plaidCompleted}}
+  <div id="target">
+  <!-- {{#plaid-link action='processPlaidToken'}}Verify Bank Account{{/plaid-link}} -->
+    <button {{action 'callApi' users}}>Call</button>
+
+  </div>
+{{else}}
+
+
+{{/if}}

@@ -40,6 +40,44 @@ router.get('/', function(request, response) {
 // more routes for our API will happen here
 
 //test routes ending with coffeeshops
+
+
+  //routes by id -- coffeeshops/:coffee_id
+router.route('/users/:users_id')
+//
+//   .get(function(request, response){
+//     Coffee.findById(request.params.coffee_id, function(error, coffee){
+//       if(error) response.send(error);
+//       response.json(coffee);
+//     });
+//   })
+//   // update the coffee shop with this Id
+  .put(function(request, response){
+    User.findById(request.params.users_id, function(error, user){
+      if(error) response.send(error);
+      //update
+      user.accounts = request.body.accounts;
+      user.coffeeShop = request.body.coffee_shops;
+      user.lastCoffeeId = request.body.last_coffee_id;
+      //save the udpate
+      user.save(function(error){
+        if(error) response.send(error);
+        response.json({message:'updated!'});
+      });
+    });
+  })
+//
+//   .delete(function (request, response){
+//     Coffee.remove({
+//       _id:request.params.coffee_id
+//     }, function(error, coffee){
+//       if(error) res.send(error);
+//
+//       response.json({message: 'Successfully Deleted'});
+//     });
+//   });
+// *******************************************************************************
+//Ember routes
 router.route('/users')
 
 
@@ -47,10 +85,10 @@ router.route('/users')
   .post(function(request, response){
     var user = new User(); // new instance of the model
     console.log(user);
-    console.log(request);
-    // user.accounts = request.body.accounts;
-    // user.coffeeShop = request.body.coffeeShop;
-    // user.lastCoffee_id = request.body.lastCoffee_id;
+    console.log(request.body);
+    user.accounts = request.body.accounts;
+    user.coffeeShop = request.body.coffee_shops;
+    user.lastCoffeeId = request.body.last_coffee_id;
 
     user.save(function(error){
       if(error)
@@ -60,6 +98,9 @@ router.route('/users')
     });
 
   })
+  .put(function(request, response){
+    console.log(request.body);
+  })
 
   // get all users(shops) accessed at  http://localhost:8080/api/v1/users
   .get(function(request, response){
@@ -67,43 +108,7 @@ router.route('/users')
       if (error) response.send(error);
       response.json(users);
     });
-  })
-
-  //routes by id -- coffeeshops/:coffee_id
-router.route('/coffees/:coffee_id')
-
-  .get(function(request, response){
-    Coffee.findById(request.params.coffee_id, function(error, coffee){
-      if(error) response.send(error);
-      response.json(coffee);
-    });
-  })
-  // update the coffee shop with this Id
-  .put(function(request, response){
-    Coffee.findById(request.params.coffee_id, function(error, coffee){
-      if(error) response.send(error);
-      //update
-      coffeeShop.name=request.body.name;
-      coffeeShop.address=request.body.address;
-      //save the udpate
-      coffeeShop.save(function(error){
-        if(error) response.send(error);
-        response.json({message:'updated!'});
-      });
-    });
-  })
-
-  .delete(function (request, response){
-    Coffee.remove({
-      _id:request.params.coffee_id
-    }, function(error, coffee){
-      if(error) res.send(error);
-
-      response.json({message: 'Successfully Deleted'});
-    });
   });
-// *******************************************************************************
-//Ember routes
   router.post('/test', function(request, response) {
     console.log(jsonData);
     response.json(jsonData);
